@@ -1,0 +1,1 @@
+### estatisticas sobre os dados extraidos 

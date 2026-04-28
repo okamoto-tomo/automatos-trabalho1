@@ -1,0 +1,1 @@
+### extrair os dados pra um arquivo json utilizando dicionarios 
