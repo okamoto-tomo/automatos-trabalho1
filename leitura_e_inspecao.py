@@ -11,7 +11,15 @@ def ler_arquivo_atendimentos():   #função pra ler o arquivo
         return contador, conteudo   #retorna os valores de linhas e o texto como um todo pra serem usados depois
 
 
-ler_arquivo_atendimentos()       
-        
+def ler_arquivo_logs ():
+    with open ("automatos-trabalho1/assets/02_logs_mistos.log", "r", encoding= "utf-8") as arq:
+        conteudo = arq.readlines()   #o readlines cria uma lista de strings com base no /n invisivel que tem entre um chamado e outro, e com isso, separa chamado a chamado            
+        contador = len(conteudo)   #se baseia na variavel acima pra decretar o numero de linhas, já que a função de cima lê todo o arquivo antes de "arrumar"  
+        print (f"linhas: {contador}")  #mostra o numero de linhas do arquivo de atendimentos
+        for linha in conteudo [0:100]: #mostra os 100 primeiros chamados 
+            print(linha.strip())   #essa função tira o /n invisivel do final de cada chamado, pra na hora de vizualizar, não ter um espaço extra separando cada chamado
+        return contador, conteudo   #retorna os valores de linhas e o texto como um todo pra serem usados depois
+            
+    
 
 
