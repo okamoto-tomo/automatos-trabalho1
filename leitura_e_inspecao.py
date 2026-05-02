@@ -9,6 +9,7 @@ def ler_arquivo_atendimentos():   #função pra ler o arquivo
             contador += 1   #vai somando o numero de linhas
             conteudo += linha   #vai colocando o texto de cada linha na variavel conteudo    
         print (contador)   #mostra o numero de linhas do arquivo de atendimentos
+        return contador, conteudo   #retorna os valores de linhas e o texto como um todo pra serem usados depois
 
 
 ler_arquivo_atendimentos()       
