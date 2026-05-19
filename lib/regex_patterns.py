@@ -14,7 +14,7 @@
 import re
 
 regex = {
-    email: (
+    "email": (
         r"[a-z0-9_]"                        # Começa com letra minúscula + número + underline, mínimo 1 caractere
         r"( [a-z0-9_] | (\.[a-z0-9_]) )*"   # Evita pontos seguidos (ex: joao..1@gmail.com é inválido)
         r"@"                                # Arroba
@@ -22,7 +22,7 @@ regex = {
         r"[a-z]{2,}"                        # Top-level domain, no mínimo duas letras minúsculas no final do email
     ),
     
-    telefone: (
+    "telefone": (
         r"( (\d{2}) | (\(\d{2}\)) )"        # DDD: XX ou (XX)
         r"\s?"                              # Espaço opcional entre DDD e telefone
         r"\d{5}"                            # Primeiros 5 dígitos do número
