@@ -30,28 +30,28 @@ regex = {
         r"\d{4}"                            # Últimos 4 dígitos do número
     ),
     
-    cpf: (
+    "cpf": (
         r"((\d{3}\.){2}\d{3}-\d{2}"         # CPF com ponto e hífen
         r"|"                                # OU
         r"(\d{11}))"                        # CPF sem ponto e hífen
     ),
     
-    data: (
+    "data": (
         r"\d{2}/\d{2}/"                     # Dia/mês/
         r"((\d{2})|(\d}{4}))"               # Dois ou quatro dígitos do ano (DD/MM/AA ou DD/MM/AAAA)
     ),
     
-    horario: (
+    "horario": (
         r"\d{2}:\d{2}:\d{2}"                # Hora:minuto:segundo (HH:MM:SS)
     ),
     
-    data_e_horario: (
+    "data_e_horario": (
         r"\d{2}/\d{2}/"                     # Dia/mês/
         r"((\d{2})|(\d}{4}))"               # Dois ou quatro dígitos do ano (DD/MM/AA ou DD/MM/AAAA)
         r"\d{2}:\d{2}:\d{2}"                # Hora:minuto:segundo (HH:MM:SS)
     ),
     
-    url: (
+    "url": (
         r"(https?://)?"                     # Protocolo HTTP ou HTTPS opcional
         r"(www\.)?"                         # World Wide Web opcional
         r"([a-z0-9]{2,}\.)+"                # Mínimo de 2 caracteres alfanuméricos seguido de um ponto, no mínimo uma ocorrência disso
@@ -59,7 +59,7 @@ regex = {
         r"(/.*)?"                           # Barra seguido de qualquer coisa de qualquer tamanho, opcional
     ),
     
-    dinheiro: (
+    "dinheiro": (
         r"R$(\s)?"                          # Real cifrão com espaço opcional
         r"( \d{1,3}(\.\d{3})*)"             # 1 a 3 dígitos seguido de zero ou mais ponto com 3 dígitos
         r"|"                                # OU
@@ -67,7 +67,7 @@ regex = {
         r"(,\d{2})?"                        # Vírgula com 2 dígitos, opcional
     ),
     
-    nome: (
+    "nome": (
         r"([A-Z ÁÉÍÓÚ ÂÊÎÔÛ ÃÕ][a-z áéíóú âêîôû ãõ ç]+)+"    # Um ou mais palavras capitalizadas, inclui diacríticos da língua portuguesa
     ),
 }
