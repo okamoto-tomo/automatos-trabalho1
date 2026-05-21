@@ -2,10 +2,10 @@
 
 # 1. Criamos o dicionário mapeando um "nome amigável" ao caminho real do arquivo
 arquivos_do_reginaldo = {
-    "atendimentos": "automatos-trabalho1/assets/01_atendimentos_bagunçados.txt",
-    "logs": "automatos-trabalho1/assets/02_logs_mistos.log",
-    "chat": "automatos-trabalho1/assets/03_mensagens_chat.txt",
-    "exportacao": "automatos-trabalho1/assets/04_exportacao_suja.csv"
+    "atendimentos": "assets/01_atendimentos_bagunçados.txt",
+    "logs": "assets/02_logs_mistos.log",
+    "chat": "assets/03_mensagens_chat.txt",
+    "exportacao": "assets/04_exportacao_suja.csv"
 }
 
 # 2. Uma única função genérica que faz todo o trabalho duro
@@ -36,5 +36,3 @@ def ler_arquivo(identificador_do_arquivo):
             
         print("=======================================\n")
         return contador, conteudo
-
-total_atend, dados_atend = ler_arquivo("atendimentos")
