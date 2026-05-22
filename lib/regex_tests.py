@@ -1,5 +1,5 @@
-import regex_patterns
-import regex_examples
+import lib.regex_patterns
+import lib.regex_examples
 import re
 
 RED     = "\033[31m"
@@ -7,8 +7,8 @@ GREEN   = "\033[32m"
 RESET   = "\033[0m"
 BOLD    = "\033[1m"
 
-for exemplo, campo in zip(regex_examples.exemplos, regex_patterns.regex.keys()):
-    pattern = regex_patterns.regex[campo]
+for exemplo, campo in zip(lib.regex_examples.exemplos, lib.regex_patterns.regex.keys()):
+    pattern = lib.regex_patterns.regex[campo]
     
     print(f"Expressão regular de {campo}: {pattern}")
 
