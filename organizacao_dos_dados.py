@@ -34,6 +34,10 @@ class OrganizadorDados:
             print(f"[ERRO] Falha ao exportar arquivo JSON: {e}")
             return False
 
+
+
+
+'''
 # ==========================================
 # EXEMPLO DE USO PRÁTICO (SIMULAÇÃO)
 # ==========================================
@@ -72,3 +76,4 @@ if __name__ == "__main__":
 
     # Exportando a estrutura para o arquivo JSON exigido
     organizador.exportar_para_json("ocorrencias_estruturadas.json")
+'''
