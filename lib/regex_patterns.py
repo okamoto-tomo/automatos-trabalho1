@@ -80,9 +80,9 @@ regex = {
     ),
     
     "nome": (
-        r"[A-ZÁÉÍÓÚÂÊÎÔÛ]"                          # Inicial maiúscula
-        r"[a-záéíóúâêîôûãõç]+"                      # Um ou mais letras, inclui diacríticos da língua portuguesa
-        r"(\s[A-ZÁÉÍÓÚÂÊÎÔÛ][a-záéíóúâêîôûãõç]+)*"  # Outros nomes
+        r"[A-ZÁÉÍÓÚÂÊÎÔÛ]"                              # Inicial maiúscula
+        r"[a-záéíóúâêîôûãõç]+"                          # Um ou mais letras, inclui diacríticos da língua portuguesa
+        r"(?:\s[A-ZÁÉÍÓÚÂÊÎÔÛ][a-záéíóúâêîôûãõç]+)*"    # Outros nomes
     ),
 }
 
