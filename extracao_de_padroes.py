@@ -2,7 +2,6 @@
 
 # falta expressoes_regulares
 import leitura_e_inspecao
-import lib.regex_patterns
 import re
 
 def extrair_valores(caminho: str, expressoes_regulares: dict) -> list[tuple[str, str, str]]:
