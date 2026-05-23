@@ -57,7 +57,7 @@ class OrganizadorTextual:
         self.dados: List[Dict[str, Any]] = []
 
     # ------------------------------------------------------------------ #
-    # Ingestão                                                             #
+    # Ingestão                                                           #
     # ------------------------------------------------------------------ #
 
     def adicionar_ocorrencia(self, tipo: str, valor: str, origem: str, valido: bool) -> None:
@@ -81,7 +81,7 @@ class OrganizadorTextual:
             self.adicionar_ocorrencia(tipo, valor, origem, valido)
 
     # ------------------------------------------------------------------ #
-    # Exportação                                                           #
+    # Exportação                                                         #
     # ------------------------------------------------------------------ #
 
     def exportar_json(self, nome_arquivo: str = "dados_textuais.json") -> bool:
@@ -121,16 +121,16 @@ class OrganizadorCSV:
     Recebe os registros validados provenientes do arquivo 04 e os estrutura
     em uma lista de dicionários.
 
-    Cada entrada da lista segue o esquema:
+    Cada entrada da lista segue estritamente o esquema solicitado:
         {
             "id": int,
             "matches": {
-                "nome": [str, bool],
-                "email": [str, bool],
-                "telefone": [str, bool],
-                "cpf": [str, bool],
-                "data_e_horario": [str, bool],
-                "dinheiro": [str, bool]
+                "nome":           {"valor": str, "classificacao": str},
+                "email":          {"valor": str, "classificacao": str},
+                "telefone":       {"valor": str, "classificacao": str},
+                "cpf":            {"valor": str, "classificacao": str},
+                "data_e_horario": {"valor": str, "classificacao": str},
+                "dinheiro":       {"valor": str, "classificacao": str}
             },
             "validade": bool,
             "arquivo_origem": str
@@ -146,25 +146,27 @@ class OrganizadorCSV:
         self.dados: List[Dict[str, Any]] = []
 
     # ------------------------------------------------------------------ #
-    # Ingestão                                                             #
+    # Ingestão                                                           #
     # ------------------------------------------------------------------ #
 
     def adicionar_registro(self, registro: RegistroCSV) -> None:
-        """Adiciona um único registro validado."""
+        """Adiciona um único registro estruturando os campos conforme o padrão exigido."""
         id_reg, matches, valido_geral, caminho = registro
 
-        campos: Dict[str, Dict[str, str]] = {}
+        # Estrutura os campos internos com chaves explícitas de valor e classificação (item d)
+        estrutura_matches: Dict[str, Dict[str, str]] = {}
         for nome_col, (valor, valido_campo) in zip(_COLUNAS_CSV, matches):
-            campos[nome_col] = {
-                "valor"        : valor,
-                "classificacao": "valido" if valido_campo else "invalido",
+            estrutura_matches[nome_col] = {
+                "valor": valor,
+                "classificacao": "valido" if valido_campo else "invalido"
             }
 
+        # Montagem final do dicionário seguindo a ordem de chaves da instrução
         self.dados.append({
-            "id"            : id_reg,
-            "arquivo_origem": caminho,
-            "classificacao" : "valido" if valido_geral else "invalido",
-            "campos"        : campos,
+            "id": id_reg,
+            "matches": estrutura_matches,
+            "validade": valido_geral,
+            "arquivo_origem": caminho
         })
 
     def adicionar_lote(self, registros: List[RegistroCSV]) -> None:
@@ -179,7 +181,7 @@ class OrganizadorCSV:
             self.adicionar_registro(registro)
 
     # ------------------------------------------------------------------ #
-    # Exportação                                                           #
+    # Exportação                                                         #
     # ------------------------------------------------------------------ #
 
     def exportar_json(self, nome_arquivo: str = "dados_csv.json") -> bool:
