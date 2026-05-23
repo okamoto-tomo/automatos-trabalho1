@@ -29,9 +29,6 @@ def classificar_valores(entradas: list[tuple[str, str, str]], regexes_classifica
     for entrada in entradas:
         tipo, valor, origem = entrada[:3]
         
-        if tipo not in ["email", "telefone", "cpf", "url"]:
-            continue
-        
         lista_classificacao.append((tipo, 
                                     valor, 
                                     origem, 
