@@ -7,5 +7,5 @@ import b_extracao
 import lib.regex_classificacao_padroes
 
 
-for arquivo in a_leitura.arquivos_do_reginaldo.keys():
-    print(*b_extracao.extrair_valores(arquivo, lib.regex_classificacao_padroes.regex), sep="\n")
+for arquivo in list(a_leitura.arquivos_do_reginaldo.keys())[:3]:
+    print(*b_extracao.extrair_valores(a_leitura.ler_arquivo(arquivo), lib.regex_classificacao_padroes.regex), sep="\n")
