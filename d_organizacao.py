@@ -123,16 +123,17 @@ class OrganizadorCSV:
 
     Cada entrada da lista segue o esquema:
         {
-            "id"             : int,
-            "arquivo_origem" : str,
-            "classificacao"  : str,    # "valido" | "invalido"
-            "campos"         : {
-                "<nome_coluna>" : {
-                    "valor"         : str,
-                    "classificacao" : str   # "valido" | "invalido"
-                },
-                ...
-            }
+            "id": int,
+            "matches": {
+                "nome": [str, bool],
+                "email": [str, bool],
+                "telefone": [str, bool],
+                "cpf": [str, bool],
+                "data_e_horario": [str, bool],
+                "dinheiro": [str, bool]
+            },
+            "validade": bool,
+            "arquivo_origem": str
         }
 
     A separação dos campos preserva a granularidade por coluna, o que
