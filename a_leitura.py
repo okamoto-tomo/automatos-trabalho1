@@ -8,10 +8,10 @@ conteúdo de cada arquivo.
 
 
 arquivos_do_reginaldo = {
-    "atendimentos": "assets/01_atendimentos_bagunçados.txt",
-    "logs":         "assets/02_logs_mistos.log",
-    "chat":         "assets/03_mensagens_chat.txt",
-    "exportacao":   "assets/04_exportacao_suja.csv",
+    "atendimentos": "01_atendimentos_bagunçados.txt",
+    "logs":         "02_logs_mistos.log",
+    "chat":         "03_mensagens_chat.txt",
+    "exportacao":   "04_exportacao_suja.csv",
 }
 
 
@@ -33,8 +33,8 @@ def ler_arquivo(identificador_do_arquivo: str, CSV: bool = False) -> None | tupl
         print(f"Erro: O identificador '{identificador_do_arquivo}' não existe.")
         arquivo = None
 
-    with open(caminho, "r", encoding="utf-8") as arq:
-        arquivo = (caminho.replace("assets/", ""), arq.readlines()[1:] if CSV else arq.readlines())
+    with open(f"assets/{caminho}", "r", encoding="utf-8") as arq:
+        arquivo = (caminho, arq.readlines()[1:] if CSV else arq.readlines())
         
     return arquivo
 
@@ -53,9 +53,9 @@ def tamanho_arquivo(lista_linhas: list[str]) -> int:
     return tamanho
 
 
-def visualizar_amostra(lista_linhas: list[str], quantidade=100) -> None:
+def visualizar_amostra(lista_linhas: list[str], quantidade=10) -> None:
     """
-    Recebe as linhas e mostra na tela a quantidade pedida (padrão 100).
+    Recebe as linhas e mostra na tela a quantidade pedida (padrão 10).
     
     params:
         lista_linhas (list[str]): Lista de conteúdo do arquivo.
