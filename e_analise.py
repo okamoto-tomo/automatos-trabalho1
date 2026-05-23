@@ -5,7 +5,9 @@ quantidade total de ocorrências por tipo; quantidade de ocorrências válidas e
 inválidas por tipo; distribuição das ocorrências entre os arquivos.
 '''
 
-import json, os, sys
+import json
+import os
+import sys
 from datetime import datetime
 import pandas as pd
 
