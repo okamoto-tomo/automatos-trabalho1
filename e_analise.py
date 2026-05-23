@@ -12,120 +12,144 @@ from datetime import datetime
 import pandas as pd
 
 
-SEP = "=" * 72
+LINHA = "=" * 72
 
 
-# carregamento dps arquivos
 def carregar_df(json_path=None):
-    if json_path and os.path.isfile(json_path):
-        with open(json_path, 'r', encoding="utf-8") as f:
-            raw = json.load(f)
-            
-        dados = raw if isinstance(raw, list) else next(
-            (v for v in raw.values() if isinstance(v, list)), None)
-        
-        if dados:
-            print(f" JSON carregado: {json_path} ({len(dados)} registros)")
-            return pd.DataFrame(dados)
+    if json_path == None or not os.path.isfile(json_path):
+        print("[ERRO] Arquivo não informado ou não encontrado.")
+        return None
 
-    print("[ERRO] Arquivo não informado ou não encontrado.")
-    return None
+    with open(json_path, 'r', encoding="utf-8") as f:
+        raw = json.load(f)
+
+    if isinstance(raw, list):
+        dados = raw
+    else:
+        dados = None
+        for v in raw.values():
+            if isinstance(v, list):
+                dados = v
+                break
+
+    if not dados:
+        print("[ERRO] Nenhuma lista encontrada no JSON.")
+        return None
+
+    primeiro = dados[0]
+
+    linhas = []
+
+    # estrutura do CSV (tem 'matches')
+    if "matches" in primeiro:
+        for registro in dados:
+            for tipo, conteudo in registro["matches"].items():
+                linha = {
+                    "id":            registro["id"],
+                    "tipo":          tipo,
+                    "valor":         conteudo["valor"],
+                    "classificacao": conteudo["classificacao"],
+                    "validade":      registro["validade"],
+                    "arquivo_origem": registro["arquivo_origem"],
+                }
+                linhas.append(linha)
+
+    # estrutura geral (tem 'tipo' e 'classificacao' direto)
+    elif "tipo" in primeiro and "classificacao" in primeiro:
+        linhas = dados
+
+    else:
+        print(f"[ERRO] Estrutura do JSON não reconhecida. Chaves: {list(primeiro.keys())}")
+        return None
+
+    print(f"JSON carregado: {json_path} ({len(dados)} registros, {len(linhas)} ocorrências)")
+    return pd.DataFrame(linhas)
 
 
 def analisar(json_path=None):
     df = carregar_df(json_path)
     if df is None:
-        return 
-    
+        return
+
     df["classificacao"] = df["classificacao"].str.lower().str.strip()
     ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    blocos = []
 
-    def secao(titulo):
-        blocos.append(f"\n{SEP}\n  {titulo}\n{SEP}")
+    relatorio = LINHA + "\n"
+    relatorio += "  ANÁLISE QUANTITATIVA\n"
+    relatorio += f"  Gerado em: {ts}\n"
 
-    # e.1 – tipo
-    secao("e.1  Quantidade total de ocorrências por tipo de padrão")
+    # e.1 - total por tipo
+    relatorio += f"\n{LINHA}\n  e.1  Quantidade total de ocorrências por tipo de padrão\n{LINHA}\n"
     e1 = df.groupby("tipo").size().reset_index(name="total").sort_values("tipo")
-    blocos.append(e1.to_string(index=False))
+    relatorio += e1.to_string(index=False)
 
-    # e.2 – validados e invalidos 
-    secao("e.2  Ocorrências válidas e inválidas por tipo")
-    e2 = (df.groupby(["tipo", "classificacao"])
-            .size()
-            .unstack(fill_value=0)
-            .reindex(columns=["valido", "invalido"], fill_value=0))
-    e2["total"] = e2.sum(axis=1)
+    # e.2 - validos e invalidos por tipo
+    relatorio += f"\n{LINHA}\n  e.2  Ocorrências válidas e inválidas por tipo\n{LINHA}\n"
+    e2 = df.groupby(["tipo", "classificacao"]).size().unstack(fill_value=0)
+    e2 = e2.reindex(columns=["valido", "invalido"], fill_value=0)
+    e2["total"] = e2["valido"] + e2["invalido"]
     e2["% válido"]   = (e2["valido"]   / e2["total"] * 100).round(1).astype(str) + "%"
     e2["% inválido"] = (e2["invalido"] / e2["total"] * 100).round(1).astype(str) + "%"
-    blocos.append(e2[["valido", "% válido", "invalido", "% inválido", "total"]].to_string())
+    relatorio += e2[["valido", "% válido", "invalido", "% inválido", "total"]].to_string()
 
-    # e.3 distribuicao dos arquivos
-    secao("e.3  Distribuição das ocorrências entre os arquivos")
-    e3 = (df.groupby(["arquivo_origem", "tipo"])
-            .size()
-            .unstack(fill_value=0))
+    # e.3 - distribuicao por arquivo
+    relatorio += f"\n{LINHA}\n  e.3  Distribuição das ocorrências entre os arquivos\n{LINHA}\n"
+    e3 = df.groupby(["arquivo_origem", "tipo"]).size().unstack(fill_value=0)
     e3["TOTAL"] = e3.sum(axis=1)
-    blocos.append(e3.to_string())
+    relatorio += e3.to_string()
 
-    # e.4  classificacao por arquivo
-    secao("e.4  Classificação (válido / inválido) por arquivo")
-    e4 = (df.groupby(["arquivo_origem", "classificacao"])
-            .size()
-            .unstack(fill_value=0)
-            .reindex(columns=["valido", "invalido"], fill_value=0))
-    e4["total"] = e4.sum(axis=1)
+    # e.4 - classificacao por arquivo
+    relatorio += f"\n{LINHA}\n  e.4  Classificação (válido / inválido) por arquivo\n{LINHA}\n"
+    e4 = df.groupby(["arquivo_origem", "classificacao"]).size().unstack(fill_value=0)
+    e4 = e4.reindex(columns=["valido", "invalido"], fill_value=0)
+    e4["total"] = e4["valido"] + e4["invalido"]
     e4["% válido"]   = (e4["valido"]   / e4["total"] * 100).round(1).astype(str) + "%"
     e4["% inválido"] = (e4["invalido"] / e4["total"] * 100).round(1).astype(str) + "%"
-    blocos.append(e4[["valido", "% válido", "invalido", "% inválido", "total"]].to_string())
+    relatorio += e4[["valido", "% válido", "invalido", "% inválido", "total"]].to_string()
 
-    # e.5 resumo executivo
-    secao("e.5  Resumo executivo")
+    # e.5 - resumo
+    relatorio += f"\n{LINHA}\n  e.5  Resumo executivo\n{LINHA}\n"
+
     total_geral  = len(df)
     total_valido = (df["classificacao"] == "valido").sum()
     total_inv    = total_geral - total_valido
     tipo_top     = e1.loc[e1["total"].idxmax(), "tipo"]
     arq_top      = e3["TOTAL"].idxmax()
 
-    resumo = (
-        f"\n  Total de ocorrências processadas : {total_geral}"
-        f"\n  Total válidas                    : {total_valido}  ({round(total_valido/total_geral*100,1)}%)"
-        f"\n  Total inválidas                  : {total_inv}  ({round(total_inv/total_geral*100,1)}%)"
-        f"\n\n  Tipo mais frequente              : {tipo_top} ({e1.set_index('tipo').loc[tipo_top,'total']} ocorrências)"
-        f"\n  Arquivo com mais ocorrências     : {arq_top} ({int(e3.loc[arq_top,'TOTAL'])} ocorrências)"
-        f"\n  Tipos analisados                 : {df['tipo'].nunique()}"
-        f"\n  Arquivos analisados              : {df["arquivo_origem"].nunique()}\n"
-    )
-    blocos.append(resumo)
-    blocos.append(SEP)
-
-    relatorio = f"{SEP}\n  ANÁLISE QUANTITATIVA\n" \
-                f"  Gerado em: {ts}\n" + "\n".join(blocos)
+    relatorio += f"\n  Total de ocorrências processadas : {total_geral}"
+    relatorio += f"\n  Total válidas                    : {total_valido}  ({round(total_valido/total_geral*100,1)}%)"
+    relatorio += f"\n  Total inválidas                  : {total_inv}  ({round(total_inv/total_geral*100,1)}%)"
+    relatorio += f"\n\n  Tipo mais frequente              : {tipo_top} ({e1.set_index('tipo').loc[tipo_top,'total']} ocorrências)"
+    relatorio += f"\n  Arquivo com mais ocorrências     : {arq_top} ({int(e3.loc[arq_top,'TOTAL'])} ocorrências)"
+    relatorio += f"\n  Tipos analisados                 : {df['tipo'].nunique()}"
+    relatorio += f"\n  Arquivos analisados              : {df['arquivo_origem'].nunique()}\n"
+    relatorio += LINHA
 
     print(relatorio)
 
-    # exportacoes
+    # exporta json com as estatísticas
     stats = {
-        "metadados":                 {"gerado_em": ts, "total_registros": total_geral},
-        "total_por_tipo":            e1.set_index("tipo")["total"].to_dict(),
+        "metadados":                  {"gerado_em": ts, "total_registros": total_geral},
+        "total_por_tipo":             e1.set_index("tipo")["total"].to_dict(),
         "validos_invalidos_por_tipo": e2.to_dict(orient="index"),
-        "distribuicao_por_arquivo":  e3.to_dict(orient="index"),
-        "classificacao_por_arquivo": e4.to_dict(orient="index"),
+        "distribuicao_por_arquivo":   e3.to_dict(orient="index"),
+        "classificacao_por_arquivo":  e4.to_dict(orient="index"),
         "resumo": {
-            "total_geral": total_geral, "total_valido": int(total_valido),
-            "total_invalido": int(total_inv),
-            "pct_valido":   round(total_valido / total_geral * 100, 1),
-            "pct_invalido": round(total_inv    / total_geral * 100, 1),
-            "tipo_mais_frequente":        tipo_top,
-            "arquivo_mais_ocorrencias":   arq_top,
+            "total_geral":              total_geral,
+            "total_valido":             int(total_valido),
+            "total_invalido":           int(total_inv),
+            "pct_valido":               round(total_valido / total_geral * 100, 1),
+            "pct_invalido":             round(total_inv    / total_geral * 100, 1),
+            "tipo_mais_frequente":      tipo_top,
+            "arquivo_mais_ocorrencias": arq_top,
         },
     }
 
-    with open("resultados_quantitativos.json", "w", encoding="utf-8") as f:
+    with open("arquivos_json/resultados_quantitativos.json", "w", encoding="utf-8") as f:
         json.dump(stats, f, ensure_ascii=False, indent=2, default=str)
     print("Exportado resultados_quantitativos.json")
 
-    with open("relatorio_quantitativo.txt", "w", encoding="utf-8") as f:
+    with open("lib/relatorio_quantitativo.txt", "w", encoding="utf-8") as f:
         f.write(relatorio)
     print("Exportado relatorio_quantitativo.txt")
 
@@ -133,4 +157,7 @@ def analisar(json_path=None):
 
 
 if __name__ == "__main__":
-    analisar(sys.argv[1] if len(sys.argv) > 1 else None)
+    if len(sys.argv) > 1:
+        analisar(sys.argv[1])
+    else:
+        analisar(None)
