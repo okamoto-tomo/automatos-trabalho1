@@ -11,7 +11,7 @@
    9. nome próprio                  (https://funag.gov.br/manual/index.php?title=Mai%C3%BAsculas_e_min%C3%BAsculas)
    (definir critérios e justificar)'''
 
-regex = {
+regex_classificacao = {
     "email": (
         r"(?=[a-z0-9\.]{6,30}@)"    # Lookahead necessário para contar o tamanho do local (mínimo 6, máximo 30 char).
         r"[a-z0-9]"                 # Começa com letra minúscula ou número

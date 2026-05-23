@@ -1,9 +1,9 @@
 # Regex de extração de dados, independente de serem válidos ou não.
 
-regex = {
+regex_extracao = {
     # Qualquer coisa + @ + qualquer coisa
     "email" : (
-        r"\S+@\S+"   #(\S) Pega qualquer coisa que não seja espaço, (@) arroba, ()\Squalquer coisa que não seja espaço.
+        r"\S+@\S+"   #(\S) Pega qualquer coisa que não seja espaço
     ),
 
     # Captura todos os números de telefone, estejam ou não com DDD. Logo, busca números com 8, 9 e 11 dígitos.
@@ -19,8 +19,8 @@ regex = {
 
     # CPF (11 dígitos) com ponto, hífen ou espaços opcionais.
     "cpf": (
-        r"\d{3}[.\s-]?\d{3}[.\s-]?\d{3}[-\s]?\d{2}" #(\d{3}) Três números.
-                                                    #([.\s-]?) Ponto ou espaço ou hífen opcionais.
+        r"\d{3}[.\s-]?\d{3}[.\s-]?\d{3}[.\s-]?\d{2}"    #(\d{3}) Três números.
+                                                        #([.\s-]?) Ponto ou espaço ou hífen opcionais.
     ),
 
     # Captura todas as datas possíveis.
@@ -29,11 +29,11 @@ regex = {
                                    #/ barra
                                    #(\d{2,4}) O ano podendo ser qualquer ano de dois ou quatro dígitos.
     ),
-
+    
     # Captura os horários, contandos os segundos (se tiver)
     "horario": (
         r"\d{1,2}:\d{2}(?::\d{2})?"
-    ),
+    ), 
     
     # Captura data e horário juntos
     "data_e_horario": (
