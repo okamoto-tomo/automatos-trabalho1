@@ -2,8 +2,8 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-import lib.regex_classificacao_padroes
-import lib.regex_classificacao_exemplos
+from lib.regex_classificacao_padroes import *
+from lib.regex_exemplos import *
 import re
 
 RED     = "\033[31m"
@@ -11,8 +11,8 @@ GREEN   = "\033[32m"
 RESET   = "\033[0m"
 BOLD    = "\033[1m"
 
-for exemplo, tipo in zip(lib.regex_classificacao_exemplos.exemplos, lib.regex_classificacao_padroes.regex.keys()):
-    pattern = lib.regex_classificacao_padroes.regex[tipo]
+for exemplo, tipo in zip(exemplos, regex_classificacao.keys()):
+    pattern = regex_classificacao[tipo]
     
     print(f"Expressão regular de {tipo}: {pattern}")
 

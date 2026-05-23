@@ -2,14 +2,14 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-import d_organizacao
+from d_organizacao import *
 
 # ==========================================
 # EXEMPLO DE USO PRÁTICO (SIMULAÇÃO)
 # ==========================================
 if __name__ == "__main__":
     # Inicializa o organizador
-    organizador = d_organizacao.OrganizadorDados()
+    organizador = OrganizadorDados()
 
     # Simulando dados que seriam extraídos pelas Regex nos arquivos do trabalho
     # Arquivo: 01_atendimentos_bagunçados.txt
