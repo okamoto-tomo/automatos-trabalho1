@@ -52,11 +52,14 @@ regex_extracao = {
 
     # Captura URL
     "url" :(
-        r"(?:https?://)?(?:www\.)?(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(?:/\S*)?" #((?:https?://)?) Protocolo opcional.
-                                                                             #((?:www\.)?) www opcional.
-                                                                             #((?:[a-zA-Z0-9-]+\.)+) Captura domínio e subdomínio, com letras ou números ou hífens.
-                                                                             #([a-zA-Z]{2,}) Captura TLD (Top Level Domain), com duas ou mais letras.
-                                                                             #((?:/\S*)?) Path opcional.
+        r"(?<!@)(?:https?://)?(?:www\.)?(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}\b(?:/\S*)?(?!@)"   #(?<!@) Negative lookbehind, não pode conter arroba antes da URL (evita casar "gmail.com" de "joao@gmail.com")
+                                                                                            #((?:https?://)?) Protocolo opcional.
+                                                                                            #((?:www\.)?) www opcional.
+                                                                                            #((?:[a-zA-Z0-9-]+\.)+) Captura domínio e subdomínio, com letras ou números ou hífens.
+                                                                                            #([a-zA-Z]{2,}) Captura TLD (Top Level Domain), com duas ou mais letras.
+                                                                                            #(\b) Fronteira de palavra. Controla o grupo de captura do quantificador {2,}
+                                                                                            #((?:/\S*)?) Path opcional.
+                                                                                            #(?!@) Negative lookahead, não pode @ depois do TLD (evitar casar "joao.silva" de "joao.silva@gmail.com")
     ),
 
     # Captura dinheiro
