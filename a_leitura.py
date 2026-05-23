@@ -53,16 +53,16 @@ def tamanho_arquivo(lista_linhas: list[str]) -> int:
     return tamanho
 
 
-def visualizar_amostra(lista_linhas: list[str], quantidade=10) -> None:
+def visualizar_amostra(lista_linhas: list[str], quantidade=10) -> list[str]:
     """
     Recebe as linhas e mostra na tela a quantidade pedida (padrão 10).
     
     params:
         lista_linhas (list[str]): Lista de conteúdo do arquivo.
         quantidade (int): Quantidade de `n` primeiras linhas a serem amostradas
+    return:
+        amostra (list[str]): Amostra das `n` primeiras linhas do arquivo.
     """
     
-    print(f"\n--- Amostra das {quantidade} primeiras linhas ---")
-    for linha in lista_linhas[0:quantidade]:
-        print(linha.strip())
-    print("-------------------------------------------\n")
+    amostra = lista_linhas[0:quantidade].strip()
+    return amostra
