@@ -1,0 +1,67 @@
+========================================================================
+  ANÁLISE QUANTITATIVA
+  Gerado em: 2026-05-23 17:27:38
+
+========================================================================
+  e.1  Quantidade total de ocorrências por tipo de padrão
+========================================================================
+          tipo  total
+           cpf   9094
+          data  22473
+data_e_horario  22473
+      dinheiro 252924
+         email  15557
+       horario  22473
+          nome  19094
+      telefone  13570
+           url  38756
+
+========================================================================
+  e.2  Ocorrências válidas e inválidas por tipo
+========================================================================
+classificacao   valido % válido  invalido % inválido   total
+tipo                                                        
+cpf               7766    85.4%      1328      14.6%    9094
+data             22473   100.0%         0       0.0%   22473
+data_e_horario   22473   100.0%         0       0.0%   22473
+dinheiro          7987     3.2%    244937      96.8%  252924
+email             1723    11.1%     13834      88.9%   15557
+horario          22473   100.0%         0       0.0%   22473
+nome             19094   100.0%         0       0.0%   19094
+telefone         10983    80.9%      2587      19.1%   13570
+url                  0     0.0%     38756     100.0%   38756
+
+========================================================================
+  e.3  Distribuição das ocorrências entre os arquivos
+========================================================================
+tipo                             cpf   data  data_e_horario  dinheiro  email  horario  nome  telefone    url   TOTAL
+arquivo_origem                                                                                                      
+01_atendimentos_bagunçados.txt  1020   1871            1871     31052   2637     1871  3217      1861   6288   51688
+02_logs_mistos.log              3104  11145           11145    113686   6268    11145  5639      5074  14098  181304
+03_mensagens_chat.txt            701   4530            4530     38883   1913     4530  5573      1360   4399   66419
+04_exportacao_suja.csv          4269   4927            4927     69303   4739     4927  4665      5275  13971  117003
+
+========================================================================
+  e.4  Classificação (válido / inválido) por arquivo
+========================================================================
+classificacao                   valido % válido  invalido % inválido   total
+arquivo_origem                                                              
+01_atendimentos_bagunçados.txt   12486    24.2%     39202      75.8%   51688
+02_logs_mistos.log               48202    26.6%    133102      73.4%  181304
+03_mensagens_chat.txt            21766    32.8%     44653      67.2%   66419
+04_exportacao_suja.csv           32518    27.8%     84485      72.2%  117003
+
+========================================================================
+  e.5  Resumo executivo
+========================================================================
+
+  Total de ocorrências processadas : 416414
+  Total válidas                    : 114972  (27.6%)
+  Total inválidas                  : 301442  (72.4%)
+
+  Tipo mais frequente              : dinheiro (252924 ocorrências)
+  Arquivo com mais ocorrências     : 02_logs_mistos.log (181304 ocorrências)
+  Tipos analisados                 : 9
+  Arquivos analisados              : 4
+
+========================================================================
