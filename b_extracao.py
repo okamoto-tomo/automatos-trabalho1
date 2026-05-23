@@ -25,7 +25,7 @@ def extrair_valores(arquivo: tuple[str, list[str]], regexes_extracao: dict[str, 
     
     lista_extracao = []
     
-    origem = arquivo[0]
+    caminho = arquivo[0]
     conteudo = arquivo[1]
     
     for tipo, expressao_regular in regexes_extracao.items():
@@ -34,7 +34,7 @@ def extrair_valores(arquivo: tuple[str, list[str]], regexes_extracao: dict[str, 
             
             if matches:
                 for valor in matches:
-                    lista_extracao.append((tipo, valor, origem))
+                    lista_extracao.append((tipo, valor, caminho))
                     
     return lista_extracao
 
