@@ -4,9 +4,12 @@ import re
 # Regex de extração de dados, independente de serem válidos ou não.
 
 regex = {
-    # Qualquer coisa + @ + qualquer coisa
+    # Captura e-mails com caracteres comuns antes do @, domínio e TLD.
     "email" : (
-        r"\S+@\S+"   #(\S) Pega qualquer coisa que não seja espaço, (@) arroba, ()\Squalquer coisa que não seja espaço.
+        r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+"  #([a-zA-Z0-9._%+-]+) O que vem antes do @, com qualquer um desses caracteres.
+                                                        #@ literal.
+                                                        #([a-zA-Z0-9.-]+) Domínio do e-mail.
+                                                        #([a-zA-Z]+) TLD.
     ),
 
     # Captura todos os números de telefone, estejam ou não com DDD. Logo, busca números com 8, 9 e 11 dígitos.
@@ -28,40 +31,44 @@ regex = {
 
     # Captura todas as datas possíveis.
     "data": (
-        r"\d{1,2}/\d{1,2}/\d{2,4}" #(\d{1,2}) O dia podendo ser qualquer número de um ou dois dígitos.
-                                   #/ barra
-                                   #(\d{2,4}) O ano podendo ser qualquer ano de dois ou quatro dígitos.
+        r"\d{1,2}[\/._-]\d{1,2}[\/._-]\d{2,4}" #(\d{1,2}) O dia podendo ser qualquer número de um ou dois dígitos.
+                                               #/, ., - ou _.
+                                               #(\d{2,4}) O ano podendo ser qualquer ano de dois ou quatro dígitos.
     ),
 
-    # Captura os horários, contandos os segundos (se tiver)
+    # Captura os horários, contando os segundos (se tiver).
     "horario": (
-        r"\d{1,2}:\d{2}(?::\d{2})?"
+        r"\d{1,2}:\d{2}(?::\d{2})?"         #(\d{1,2}) Hora com 1 ou 2 dígitos.
+                                            #:, dois pontos.
+                                            #(\d{2}) Minuto com dois dígitos.
+                                            #((?::\d{2})?) Segundos opcionais.
     ),
     
     # Captura data e horário juntos
     "data_e_horario": (
-        r"\d{1,2}[/-]\d{1,2}[/-]\d{2,4}\s\d{1,2}:\d{2}(?::\d{2})?" #(\d{1,2}) Qualquer número, de 1 ou 2 digitos.
-                                                                   #([/-]) Barra ou traço, então pode aceitar datas como 01/01/2121 ou 01-01-2121.
-                                                                   #(\d{2,4}) Ano com dois ou quatro dígitos.
-                                                                   #\d{1,2}:\d{2}(?::\d{2})? Hora obrigatória, segundos opcionais.
+        r"\d{1,2}[/._-]\d{1,2}[/._-]\d{2,4}\s\d{1,2}:\d{2}(?::\d{2})?"   #(\d{1,2}) Dia, qualquer número, de 1 ou 2 digitos.
+                                                                         #(\/._-) Barra literal, ponto, underline ou hífen para separar os números da data.
+                                                                         #(\d{1,2}) Mês com 1 ou 2 dígitos
+                                                                         #(\d{2,4}) Ano com dois ou quatro dígitos, então captura tanto '24' quanto '2024'
+                                                                         #\d{1,2}:\d{2}(?::\d{2})? Hora obrigatória, segundos opcionais.
     ),
 
     # Captura URL
     "url" :(
-        r"(?:https?://)?(?:www\.)?\S+\.\S+(?:/\S*)?" #((?:https?://)?) Protocolo opcional.
-                                                     #((?:www\.)?) www opcional.
-                                                     #(\.) Ponto literal
-                                                     #(\S+) Qualquer coisa que não seja espaço.
-                                                     #(\S+\.\S+) Domínio.
-                                                     #((?:/\S*)?) Path.
+        r"(?:https?://)?(?:www\.)?(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(?:/\S*)?" #((?:https?://)?) Protocolo opcional.
+                                                                             #((?:www\.)?) www opcional.
+                                                                             #((?:[a-zA-Z0-9-]+\.)+) Captura domínio e subdomínio, com letras ou números ou hífens.
+                                                                             #([a-zA-Z]{2,}) Captura TLD (Top Level Domain), com duas ou mais letras.
+                                                                             #((?:/\S*)?) Path opcional.
     ),
 
     # Captura dinheiro
     "dinheiro" :(
-        r"(?:R\$\s?)?\d+(?:[\.,]\d+)*" #((?:R\$\s?)?) Talvez tenha R$ e espaço.
-                                       # (\d+) Um ou mais números.
-                                       #((?:[\.,]\d+)*) Pode ter ".", "," com números após, quantas vezes quiser.
-    ),
+        r"R\$\s?\d+(?:\.\d{3})*(?:[\.,]\d{2})?" #R$ Obrigatório.
+                                                #(\s?) Espaço opcional.
+                                                # (\d+) Um ou mais números.
+                                                #((?:\.\d{3})*) Para pegar milhares formatados, o * permite isso mais vezes, então abrange tanto 10.000 quanto 1.000.000.
+    ),                                          #((?:[\.,]\d{2})?) Centavos opcionais, com ponto ou vírgula.
 
     # Nome 
     "nome" :(
