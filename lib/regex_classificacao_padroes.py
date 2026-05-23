@@ -63,11 +63,13 @@ regex = {
     ),
     
     "url": (
+        r"(?<![@\w\.])"         # Lookbehind negativo para evitar captura de domínio de email
         r"(?:https?://)?"       # Protocolo HTTP ou HTTPS opcional
         r"(?:www\.)?"           # World Wide Web opcional
         r"(?:[a-z0-9]{2,}\.)+"  # Mínimo de 2 caracteres alfanuméricos seguido de um ponto, no mínimo uma ocorrência disso
         r"[a-z]{2,}"            # Top-level domain, no mínimo duas letras minúsculas no final do URL
-        r"(?:/.*)?"             # Barra seguido de qualquer coisa de qualquer tamanho, opcional
+        r"(?:/S*)?"             # Barra seguido de qualquer coisa de qualquer tamanho, opcional
+        r"(?![\w.]*@)"          # Lookahead negativo para evitar captura de local de email
     ),
     
     "dinheiro": (
