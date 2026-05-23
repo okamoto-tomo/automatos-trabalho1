@@ -61,8 +61,8 @@ def visualizar_amostra(lista_linhas: list[str], quantidade=10) -> list[str]:
         lista_linhas (list[str]): Lista de conteúdo do arquivo.
         quantidade (int): Quantidade de `n` primeiras linhas a serem amostradas
     return:
-        amostra (list[str]): Amostra das `n` primeiras linhas do arquivo.
+        amostra (str): Amostra das `n` primeiras linhas do arquivo.
     """
     
-    amostra = lista_linhas[0:quantidade].strip()
+    amostra = "".join(lista_linhas[0:quantidade])
     return amostra
