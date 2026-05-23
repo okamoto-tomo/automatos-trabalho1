@@ -24,7 +24,7 @@ def classificar_valores(entradas: list[tuple[str, str, str]], expressoes_regular
     lista_classificacao = []
     
     for entrada in entradas:
-        tipo, valor, origem = entrada[0], entrada[1], entrada[2]
+        tipo, valor, origem = entrada[:3]
         
         if tipo not in ["email", "telefone", "cpf", "url"]:
             continue
@@ -38,6 +38,19 @@ def classificar_valores(entradas: list[tuple[str, str, str]], expressoes_regular
     return lista_classificacao
 
 
-def validar_csv():
+def validar_csv(arquivo: tuple[str, list[str]], expressoes_regulares: dict[str, str]):
+    
+    lista_csv = []
         
+    conteudo = arquivo[1]
+    
+    campos = ["nome", "email", "telefone", "cpf", "data_e_horario", "dinheiro"]
+
+    for linha in conteudo:
+        Id, *valores = linha.strip().split(";")[:7]
         
+        matches = [(valor, re.fullmatch(expressoes_regulares[campo], valor)) for campo, valor in zip(campos, valores)]
+        
+        lista_csv.append(Id, matches, all(match for _, match in matches))
+
+    return lista_csv
