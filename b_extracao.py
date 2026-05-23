@@ -7,15 +7,17 @@ padrão, o sistema deve: aplicar a expressão regular aos arquivos; extrair toda
 ocorrências encontradas; indicar em qual arquivo ocorreram.
 '''
 
+
 import re
 
-def extrair_valores(arquivo: tuple[str, list[str]], expressoes_regulares: dict[str, str]) -> list[tuple[str, str, str]]:
+
+def extrair_valores(arquivo: tuple[str, list[str]], regexes_extracao: dict[str, str]) -> list[tuple[str, str, str]]:
     '''
     Extrai valores de cada linha do arquivo utilizando expressões regulares.
     
     params:
         arquivo (tuple[str, list[str]]): Tupla contendo o caminho e o conteúdo do arquivo.
-        expressoes_regulares (dict[str, str]): Dicionário de pares `tipo: expressão regular`.
+        regexes_extracao (dict[str, str]): Dicionário de expressões regulares de extração.
     returns: 
         lista_extracao (list[tuple[str, str, str]]): Lista de tuplas contendo o tipo, 
         a string extraída e o arquivo de origem.
@@ -26,7 +28,7 @@ def extrair_valores(arquivo: tuple[str, list[str]], expressoes_regulares: dict[s
     origem = arquivo[0]
     conteudo = arquivo[1]
     
-    for tipo, expressao_regular in expressoes_regulares.items():
+    for tipo, expressao_regular in regexes_extracao.items():
         for linha in conteudo:
             matches = re.findall(expressao_regular, linha)
             

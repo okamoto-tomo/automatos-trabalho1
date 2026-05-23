@@ -8,15 +8,18 @@ inconsistentes no arquivo CSV. Obs.: Não é necessário validar regras semânti
 (por exemplo, dígitos verificadores de CPF), exceto se o grupo desejar implementar 
 como diferencial.
 '''
+
+
 import re
 
-def classificar_valores(entradas: list[tuple[str, str, str]], expressoes_regulares: dict[str, str]) -> list[tuple[str, str, str, bool]]:
+
+def classificar_valores(entradas: list[tuple[str, str, str]], regexes_classificacao: dict[str, str]) -> list[tuple[str, str, str, bool]]:
     '''
     Classifica os valores em strings válidas e inválidas de acordo com expressões regulares de classificação.
     
     params:
         entradas (list[tuple[str, str, str]]): Lista de entradas com campos `tipo, valor, origem`.
-        expressoes_regulares (dict[str, str]): Dicionário de expressões regulares de classificação.
+        regexes_classificacao (dict[str, str]): Dicionário de expressões regulares de classificação.
     returns:
         lista_classificacao (list[tuple[str, str, str, bool]]): Lista de entradas com campos `tipo, valor, origem, validade`.
     '''
@@ -32,13 +35,13 @@ def classificar_valores(entradas: list[tuple[str, str, str]], expressoes_regular
         lista_classificacao.append((tipo, 
                                     valor, 
                                     origem, 
-                                    bool(re.fullmatch(expressoes_regulares[tipo], valor)),
+                                    bool(re.fullmatch(regexes_classificacao[tipo], valor)),
                                     ))
         
     return lista_classificacao
 
 
-def validar_csv(arquivo: tuple[str, list[str]], expressoes_regulares: dict[str, str]) -> tuple[int, list[tuple[str, bool]], bool]:
+def validar_csv(arquivo: tuple[str, list[str]], regexes_classificacao: dict[str, str]) -> list[tuple[int, list[tuple[str, bool]], bool, str]]:
     '''
     Valida os registros e os campos de um arquivo CSV, verificando:
         1. Se o campo é válido;
@@ -46,13 +49,13 @@ def validar_csv(arquivo: tuple[str, list[str]], expressoes_regulares: dict[str, 
     
     params:
         arquivo (tuple[str, list[str]]): Tupla que contém o caminho e o conteúdo do CSV.
-        expressoes_regulares (dict[str, str]): Dicionário que contém os pares `tipo: regex`.
+        regexes_classificacao (dict[str, str]): Dicionário de expressões regulares de classificação.
         
     returns:
-        lista_csv (tuple[int, list[tuple[str, bool]], bool]): Lista de tuplas as quais contém:
+        lista_csv (list[tuple[int, list[tuple[str, bool]], bool, str]]): Lista de tuplas as quais contém:
             1. Id: Identificador do registro.
             2. matches: Lista de duplas `valor, validade`.
-            3. validade: Bool que monitora se o registro válido ou inválido.
+            3. validade: Bool que monitora se o registro é válido ou inválido.
             4. caminho: Arquivo de origem.
     '''
     
@@ -66,7 +69,7 @@ def validar_csv(arquivo: tuple[str, list[str]], expressoes_regulares: dict[str, 
     for linha in conteudo:
         Id, *valores = linha.strip().split(";")[:7]
         Id = int(Id)
-        matches = [(valor, bool(re.fullmatch(expressoes_regulares[campo], valor))) for campo, valor in zip(campos, valores)]
+        matches = [(valor, bool(re.fullmatch(regexes_classificacao[campo], valor))) for campo, valor in zip(campos, valores)]
         validade = all(match for _, match in matches)
         
         lista_csv.append((Id, matches, validade, caminho))
