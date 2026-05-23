@@ -26,12 +26,7 @@ def realizar_extracao_academicas(pasta_assets, arquivo_json_saida):
         caminho_completo = os.path.join(pasta_assets, nome_arquivo)
         print(f" Processando o arquivo de entrada: {nome_arquivo}")
 
-        try:
-            with open(caminho_completo, 'r', encoding='utf-8') as f:
-                linhas = f.readlines()
-        except Exception as e:
-            print(f" Erro ao ler o arquivo {nome_arquivo}: {e}")
-            continue
+        linhas = leitura_e_inspecao.ler_arquivo(caminho_completo)
 
         # Varre linha por linha do arquivo (ignora o cabeçalho se for CSV)
         for num_linha, linha in enumerate(linhas, start=1):
@@ -59,22 +54,7 @@ def realizar_extracao_academicas(pasta_assets, arquivo_json_saida):
                     }
                     dados_extraidos.append(ocorrencia)
 
-    # Salva os dados extraídos em um arquivo JSON
-    try:
-        with open(arquivo_json_saida, 'w', encoding='utf-8') as f_out:
-            json.dump(dados_extraidos, f_out, indent=4, ensure_ascii=False)
-        print("======================================================")
-        print(f"Sucesso. Total de elementos extraídos: {len(dados_extraidos)}")
-        print(f"Arquivo gerado para integração: {arquivo_json_saida}")
-        print("======================================================")
-    except Exception as e:
-        print(f" Erro ao salvar o arquivo JSON: {e}")
 
-if __name__ == "__main__":
-    PASTA_INPUT = "assets"
-    ARQUIVO_INTEGRACAO = "dados_extraidos.json"
-    
-    realizar_extracao_academicas(PASTA_INPUT, ARQUIVO_INTEGRACAO)
 # falta expressoes_regulares
 import leitura_e_inspecao
 import re
