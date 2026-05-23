@@ -53,9 +53,9 @@ def tamanho_arquivo(lista_linhas: list[str]) -> int:
     return tamanho
 
 
-def visualizar_amostra(lista_linhas: list[str], quantidade=100) -> None:
+def visualizar_amostra(lista_linhas: list[str], quantidade=10) -> None:
     """
-    Recebe as linhas e mostra na tela a quantidade pedida (padrão 100).
+    Recebe as linhas e mostra na tela a quantidade pedida (padrão 10).
     
     params:
         lista_linhas (list[str]): Lista de conteúdo do arquivo.
