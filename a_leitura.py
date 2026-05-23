@@ -15,12 +15,13 @@ arquivos_do_reginaldo = {
 }
 
 
-def ler_arquivo(identificador_do_arquivo: str) -> None | tuple[str, list[str]]:
+def ler_arquivo(identificador_do_arquivo: str, CSV: bool = False) -> None | tuple[str, list[str]]:
     """
     Abre o arquivo e retorna a lista de linhas.
     
     params:
         identificador_do_arquivo (str): Nome legível do arquivo.
+        CSV (bool): Flag para .csv, ignora o cabeçalho.
         
     returns:
          arquivo (None | tuple[str, list[str]]): Tupla contendo o caminho e o conteúdo do arquivo.
@@ -33,7 +34,7 @@ def ler_arquivo(identificador_do_arquivo: str) -> None | tuple[str, list[str]]:
         arquivo = None
 
     with open(caminho, "r", encoding="utf-8") as arq:
-        arquivo = (caminho.replace("assets/", ""), arq.readlines())
+        arquivo = (caminho.replace("assets/", ""), arq.readlines()[1:] if CSV else arq.readlines())
         
     return arquivo
 
