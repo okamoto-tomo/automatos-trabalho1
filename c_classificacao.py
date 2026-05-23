@@ -38,19 +38,37 @@ def classificar_valores(entradas: list[tuple[str, str, str]], expressoes_regular
     return lista_classificacao
 
 
-def validar_csv(arquivo: tuple[str, list[str]], expressoes_regulares: dict[str, str]):
+def validar_csv(arquivo: tuple[str, list[str]], expressoes_regulares: dict[str, str]) -> tuple[int, list[tuple[str, bool]], bool]:
+    '''
+    Valida os registros e os campos de um arquivo CSV, verificando:
+        1. Se o campo é válido;
+        2. Se o registro é válido (ou seja, se todos os campos de um registro são válidos).
+    
+    params:
+        arquivo (tuple[str, list[str]]): Tupla que contém o caminho e o conteúdo do CSV.
+        expressoes_regulares (dict[str, str]): Dicionário que contém os pares `tipo: regex`.
+        
+    returns:
+        lista_csv (tuple[int, list[tuple[str, bool]], bool]): Lista de tuplas as quais contém:
+            1. Id: Identificador do registro.
+            2. matches: Lista de duplas `valor, validade`.
+            3. validade: Bool que monitora se o registro válido ou inválido.
+            4. caminho: Arquivo de origem.
+    '''
     
     lista_csv = []
-        
+    
+    caminho = arquivo[0]        
     conteudo = arquivo[1]
     
     campos = ["nome", "email", "telefone", "cpf", "data_e_horario", "dinheiro"]
 
     for linha in conteudo:
         Id, *valores = linha.strip().split(";")[:7]
+        Id = int(Id)
+        matches = [(valor, bool(re.fullmatch(expressoes_regulares[campo], valor))) for campo, valor in zip(campos, valores)]
+        validade = all(match for _, match in matches)
         
-        matches = [(valor, re.fullmatch(expressoes_regulares[campo], valor)) for campo, valor in zip(campos, valores)]
-        
-        lista_csv.append(Id, matches, all(match for _, match in matches))
+        lista_csv.append((Id, matches, validade, caminho))
 
     return lista_csv
