@@ -16,7 +16,7 @@ LINHA = "=" * 72
 
 
 def carregar_df(json_path=None):
-    if json_path == None or not os.path.isfile(json_path):
+    if not json_path or not os.path.isfile(json_path):
         print("[ERRO] Arquivo não informado ou não encontrado.")
         return None
 
