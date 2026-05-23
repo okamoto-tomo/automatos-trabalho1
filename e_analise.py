@@ -60,7 +60,7 @@ def analisar(json_path=None):
 
     # e.3 distribuicao dos arquivos
     secao("e.3  Distribuição das ocorrências entre os arquivos")
-    e3 = (df.groupby(["arquivo", "tipo"])
+    e3 = (df.groupby(["arquivo_origem", "tipo"])
             .size()
             .unstack(fill_value=0))
     e3["TOTAL"] = e3.sum(axis=1)
@@ -68,7 +68,7 @@ def analisar(json_path=None):
 
     # e.4  classificacao por arquivo
     secao("e.4  Classificação (válido / inválido) por arquivo")
-    e4 = (df.groupby(["arquivo", "classificacao"])
+    e4 = (df.groupby(["arquivo_origem", "classificacao"])
             .size()
             .unstack(fill_value=0)
             .reindex(columns=["valido", "invalido"], fill_value=0))
@@ -92,7 +92,7 @@ def analisar(json_path=None):
         f"\n\n  Tipo mais frequente              : {tipo_top} ({e1.set_index('tipo').loc[tipo_top,'total']} ocorrências)"
         f"\n  Arquivo com mais ocorrências     : {arq_top} ({int(e3.loc[arq_top,'TOTAL'])} ocorrências)"
         f"\n  Tipos analisados                 : {df['tipo'].nunique()}"
-        f"\n  Arquivos analisados              : {df['arquivo'].nunique()}\n"
+        f"\n  Arquivos analisados              : {df["arquivo_origem"].nunique()}\n"
     )
     blocos.append(resumo)
     blocos.append(SEP)
