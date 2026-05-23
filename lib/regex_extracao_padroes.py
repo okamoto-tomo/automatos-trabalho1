@@ -1,9 +1,6 @@
-import re
-
-
 # Regex de extração de dados, independente de serem válidos ou não.
 
-regex = {
+regex_extracao = {
     # Captura e-mails com caracteres comuns antes do @, domínio e TLD.
     "email" : (
         r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+"  #([a-zA-Z0-9._%+-]+) O que vem antes do @, com qualquer um desses caracteres.
