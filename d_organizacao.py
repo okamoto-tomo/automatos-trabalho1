@@ -1,4 +1,10 @@
-### extrair os dados pra um arquivo json utilizando dicionarios 
+'''
+d) Organização dos dados extraídos. 
+Os dados extraídos devem ser estruturados, como: dicionários, listas ou objetos; 
+arquivos JSON ou CSV. Cada ocorrência deve conter, sempre que possível: tipo do 
+dado; valor extraído; arquivo de origem; classificação (válido ou inválido).
+'''
+
 import json
 from typing import List, Dict, Any
 
@@ -33,47 +39,3 @@ class OrganizadorDados:
         except Exception as e:
             print(f"[ERRO] Falha ao exportar arquivo JSON: {e}")
             return False
-
-
-
-
-'''
-# ==========================================
-# EXEMPLO DE USO PRÁTICO (SIMULAÇÃO)
-# ==========================================
-if __name__ == "__main__":
-    # Inicializa o organizador
-    organizador = OrganizadorDados()
-
-    # Simulando dados que seriam extraídos pelas Regex nos arquivos do trabalho
-    # Arquivo: 01_atendimentos_bagunçados.txt
-    organizador.adicionar_ocorrencia(
-        tipo="CPF", 
-        valor="123.456.789-00", 
-        origem="01_atendimentos_bagunçados.txt", 
-        valido=True
-    )
-    organizador.adicionar_ocorrencia(
-        tipo="CPF", 
-        valor="111222333-44", 
-        origem="01_atendimentos_bagunçados.txt", 
-        valido=False  # Mal formatado estruturalmente
-    )
-
-    # Arquivo: 03_mensagens_chat.txt
-    organizador.adicionar_ocorrencia(
-        tipo="E-mail", 
-        valor="aluno@ufpa.br", 
-        origem="03_mensagens_chat.txt", 
-        valido=True
-    )
-    organizador.adicionar_ocorrencia(
-        tipo="URL", 
-        valor="http://site-invalido..com", 
-        origem="03_mensagens_chat.txt", 
-        valido=False
-    )
-
-    # Exportando a estrutura para o arquivo JSON exigido
-    organizador.exportar_para_json("ocorrencias_estruturadas.json")
-'''
