@@ -1,0 +1,87 @@
+{
+  "metadados": {
+    "gerado_em": "2026-05-23 21:16:09",
+    "total_registros": 30000
+  },
+  "total_por_tipo": {
+    "cpf": 5000,
+    "data_e_horario": 5000,
+    "dinheiro": 5000,
+    "email": 5000,
+    "nome": 5000,
+    "telefone": 5000
+  },
+  "validos_invalidos_por_tipo": {
+    "cpf": {
+      "valido": 3752,
+      "invalido": 1248,
+      "total": 5000,
+      "% válido": "75.0%",
+      "% inválido": "25.0%"
+    },
+    "data_e_horario": {
+      "valido": 4631,
+      "invalido": 369,
+      "total": 5000,
+      "% válido": "92.6%",
+      "% inválido": "7.4%"
+    },
+    "dinheiro": {
+      "valido": 4560,
+      "invalido": 440,
+      "total": 5000,
+      "% válido": "91.2%",
+      "% inválido": "8.8%"
+    },
+    "email": {
+      "valido": 2784,
+      "invalido": 2216,
+      "total": 5000,
+      "% válido": "55.7%",
+      "% inválido": "44.3%"
+    },
+    "nome": {
+      "valido": 4665,
+      "invalido": 335,
+      "total": 5000,
+      "% válido": "93.3%",
+      "% inválido": "6.7%"
+    },
+    "telefone": {
+      "valido": 4051,
+      "invalido": 949,
+      "total": 5000,
+      "% válido": "81.0%",
+      "% inválido": "19.0%"
+    }
+  },
+  "distribuicao_por_arquivo": {
+    "04_exportacao_suja.csv": {
+      "cpf": 5000,
+      "data_e_horario": 5000,
+      "dinheiro": 5000,
+      "email": 5000,
+      "nome": 5000,
+      "telefone": 5000,
+      "TOTAL": 30000
+    }
+  },
+  "classificacao_por_arquivo": {
+    "04_exportacao_suja.csv": {
+      "valido": 24443,
+      "invalido": 5557,
+      "total": 30000,
+      "% válido": "81.5%",
+      "% inválido": "18.5%"
+    }
+  },
+  "resumo": {
+    "total_geral": 30000,
+    "total_valido": 24443,
+    "total_invalido": 5557,
+    "pct_valido": 81.5,
+    "pct_invalido": 18.5,
+    "tipo_mais_frequente": "cpf",
+    "arquivo_mais_ocorrencias": "04_exportacao_suja.csv"
+  }
+}

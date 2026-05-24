@@ -1,0 +1,50 @@
+========================================================================
+  ANÁLISE QUANTITATIVA
+  Gerado em: 2026-05-23 21:16:09
+
+========================================================================
+  e.1  Quantidade total de ocorrências por tipo de padrão
+========================================================================
+          tipo  total
+           cpf   5000
+data_e_horario   5000
+      dinheiro   5000
+         email   5000
+          nome   5000
+      telefone   5000
+========================================================================
+  e.2  Ocorrências válidas e inválidas por tipo
+========================================================================
+classificacao   valido % válido  invalido % inválido  total
+tipo                                                       
+cpf               3752    75.0%      1248      25.0%   5000
+data_e_horario    4631    92.6%       369       7.4%   5000
+dinheiro          4560    91.2%       440       8.8%   5000
+email             2784    55.7%      2216      44.3%   5000
+nome              4665    93.3%       335       6.7%   5000
+telefone          4051    81.0%       949      19.0%   5000
+========================================================================
+  e.3  Distribuição das ocorrências entre os arquivos
+========================================================================
+tipo                     cpf  data_e_horario  dinheiro  email  nome  telefone  TOTAL
+arquivo_origem                                                                      
+04_exportacao_suja.csv  5000            5000      5000   5000  5000      5000  30000
+========================================================================
+  e.4  Classificação (válido / inválido) por arquivo
+========================================================================
+classificacao           valido % válido  invalido % inválido  total
+arquivo_origem                                                     
+04_exportacao_suja.csv   24443    81.5%      5557      18.5%  30000
+========================================================================
+  e.5  Resumo executivo
+========================================================================
+
+  Total de ocorrências processadas : 30000
+  Total válidas                    : 24443  (81.5%)
+  Total inválidas                  : 5557  (18.5%)
+
+  Tipo mais frequente              : cpf (5000 ocorrências)
+  Arquivo com mais ocorrências     : 04_exportacao_suja.csv (30000 ocorrências)
+  Tipos analisados                 : 6
+  Arquivos analisados              : 1
+========================================================================

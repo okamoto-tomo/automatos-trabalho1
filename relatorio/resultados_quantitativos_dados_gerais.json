@@ -1,0 +1,171 @@
+{
+  "metadados": {
+    "gerado_em": "2026-05-23 21:16:09",
+    "total_registros": 152332
+  },
+  "total_por_tipo": {
+    "cpf": 8421,
+    "data": 25111,
+    "data_e_horario": 22473,
+    "dinheiro": 7987,
+    "email": 13957,
+    "horario": 22473,
+    "nome": 35616,
+    "telefone": 13570,
+    "url": 2724
+  },
+  "validos_invalidos_por_tipo": {
+    "cpf": {
+      "valido": 7766,
+      "invalido": 655,
+      "total": 8421,
+      "% válido": "92.2%",
+      "% inválido": "7.8%"
+    },
+    "data": {
+      "valido": 22473,
+      "invalido": 2638,
+      "total": 25111,
+      "% válido": "89.5%",
+      "% inválido": "10.5%"
+    },
+    "data_e_horario": {
+      "valido": 22473,
+      "invalido": 0,
+      "total": 22473,
+      "% válido": "100.0%",
+      "% inválido": "0.0%"
+    },
+    "dinheiro": {
+      "valido": 7987,
+      "invalido": 0,
+      "total": 7987,
+      "% válido": "100.0%",
+      "% inválido": "0.0%"
+    },
+    "email": {
+      "valido": 8964,
+      "invalido": 4993,
+      "total": 13957,
+      "% válido": "64.2%",
+      "% inválido": "35.8%"
+    },
+    "horario": {
+      "valido": 22473,
+      "invalido": 0,
+      "total": 22473,
+      "% válido": "100.0%",
+      "% inválido": "0.0%"
+    },
+    "nome": {
+      "valido": 19094,
+      "invalido": 16522,
+      "total": 35616,
+      "% válido": "53.6%",
+      "% inválido": "46.4%"
+    },
+    "telefone": {
+      "valido": 10983,
+      "invalido": 2587,
+      "total": 13570,
+      "% válido": "80.9%",
+      "% inválido": "19.1%"
+    },
+    "url": {
+      "valido": 2603,
+      "invalido": 121,
+      "total": 2724,
+      "% válido": "95.6%",
+      "% inválido": "4.4%"
+    }
+  },
+  "distribuicao_por_arquivo": {
+    "01_atendimentos_bagunçados.txt": {
+      "cpf": 816,
+      "data": 2488,
+      "data_e_horario": 1871,
+      "dinheiro": 920,
+      "email": 2328,
+      "horario": 1871,
+      "nome": 7833,
+      "telefone": 1861,
+      "url": 833,
+      "TOTAL": 20821
+    },
+    "02_logs_mistos.log": {
+      "cpf": 2781,
+      "data": 12397,
+      "data_e_horario": 11145,
+      "dinheiro": 1513,
+      "email": 5603,
+      "horario": 11145,
+      "nome": 14222,
+      "telefone": 5074,
+      "url": 1357,
+      "TOTAL": 65237
+    },
+    "03_mensagens_chat.txt": {
+      "cpf": 555,
+      "data": 4968,
+      "data_e_horario": 4530,
+      "dinheiro": 625,
+      "email": 1693,
+      "horario": 4530,
+      "nome": 8896,
+      "telefone": 1360,
+      "url": 534,
+      "TOTAL": 27691
+    },
+    "04_exportacao_suja.csv": {
+      "cpf": 4269,
+      "data": 5258,
+      "data_e_horario": 4927,
+      "dinheiro": 4929,
+      "email": 4333,
+      "horario": 4927,
+      "nome": 4665,
+      "telefone": 5275,
+      "url": 0,
+      "TOTAL": 38583
+    }
+  },
+  "classificacao_por_arquivo": {
+    "01_atendimentos_bagunçados.txt": {
+      "valido": 14307,
+      "invalido": 6514,
+      "total": 20821,
+      "% válido": "68.7%",
+      "% inválido": "31.3%"
+    },
+    "02_logs_mistos.log": {
+      "valido": 52175,
+      "invalido": 13062,
+      "total": 65237,
+      "% válido": "80.0%",
+      "% inválido": "20.0%"
+    },
+    "03_mensagens_chat.txt": {
+      "valido": 23000,
+      "invalido": 4691,
+      "total": 27691,
+      "% válido": "83.1%",
+      "% inválido": "16.9%"
+    },
+    "04_exportacao_suja.csv": {
+      "valido": 35334,
+      "invalido": 3249,
+      "total": 38583,
+      "% válido": "91.6%",
+      "% inválido": "8.4%"
+    }
+  },
+  "resumo": {
+    "total_geral": 152332,
+    "total_valido": 124816,
+    "total_invalido": 27516,
+    "pct_valido": 81.9,
+    "pct_invalido": 18.1,
+    "tipo_mais_frequente": "nome",
+    "arquivo_mais_ocorrencias": "02_logs_mistos.log"
+  }
+}
