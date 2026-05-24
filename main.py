@@ -34,7 +34,9 @@ if __name__ == "__main__":
         print("ERRO")
     
     analise = analisar(f"arquivos_json/{PATH_JSON_GERAL}")
-    
+
+    with open("relatorio/relatorio_quantitativo_dados_gerais.txt", mode="r", encoding="utf-8") as f:
+        print("".join(f.readlines()))
  
     # CSV
     lista_csv = []
@@ -50,6 +52,11 @@ if __name__ == "__main__":
         print("ERRO")
         
     analise_csv = analisar(f"arquivos_json/{PATH_JSON_CSV}")
+    
+    with open("relatorio/relatorio_quantitativo_dados_csv.txt", mode="r", encoding="utf-8") as f:
+        print("".join(f.readlines()))
+ 
+
 
     
     

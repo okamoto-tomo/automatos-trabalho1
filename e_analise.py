@@ -125,8 +125,6 @@ def analisar(json_path=None):
     relatorio += f"\n  Arquivos analisados              : {df['arquivo_origem'].nunique()}\n"
     relatorio += LINHA
 
-    print(relatorio)
-
     # exporta json com as estatísticas
     stats = {
         "metadados":                  {"gerado_em": ts, "total_registros": total_geral},
