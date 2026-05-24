@@ -31,7 +31,7 @@ arquivos_json/
 ├── dados_csv.json
 └── dados_gerais.json
 
-lib/
+relatorio/
 ├── relatorio_quantitativo_dados_csv.txt
 ├── relatorio_quantitativo_dados_gerais.txt
 ├── resultados_quantitativos_dados_csv.json
