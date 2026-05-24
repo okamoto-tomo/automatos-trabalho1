@@ -145,11 +145,11 @@ def analisar(json_path=None):
         },
     }
 
-    with open(f"relatorio/resultados_quantitativos_{json_path.replace(".json", "").replace("arquivos_json/")}.json", "w", encoding="utf-8") as f:
+    with open(f"relatorio/resultados_quantitativos_{json_path.replace(".json", "").replace("arquivos_json/", "")}.json", "w", encoding="utf-8") as f:
         json.dump(stats, f, ensure_ascii=False, indent=2, default=str)
     print("Exportado resultados_quantitativos.json")
 
-    with open(f"relatorio/relatorio_quantitativo_{json_path.replace(".json", "").replace("arquivos_json/")}.txt", "w", encoding="utf-8") as f:
+    with open(f"relatorio/relatorio_quantitativo_{json_path.replace(".json", "").replace("arquivos_json/", "")}.txt", "w", encoding="utf-8") as f:
         f.write(relatorio)
     print("Exportado relatorio_quantitativo.txt")
 
