@@ -8,8 +8,11 @@ from e_analise import *
 
 
 PATH_JSON_GERAL = "dados_gerais.json"
+PATH_JSON_CSV = "dados_csv.json"
 
 if __name__ == "__main__":
+    
+    # GERAL
     lista_geral = []
     organizacao = OrganizadorTextual()
     
@@ -28,9 +31,26 @@ if __name__ == "__main__":
         organizacao.adicionar_lote(classificacao)
     
     if not organizacao.exportar_json(PATH_JSON_GERAL):
-        print("\n")
+        print("ERRO")
     
-    print(analisar(f"arquivos_json/{PATH_JSON_GERAL}"))
+    analise = analisar(f"arquivos_json/{PATH_JSON_GERAL}")
+    
+ 
+    # CSV
+    lista_csv = []
+    organizacao_csv = OrganizadorCSV()
+    
+    arquivo_csv = ler_arquivo("exportacao", CSV=True)
+    caminho_csv, conteudo_csv = arquivo_csv[:2]
+    
+    validacao_csv = validar_csv(arquivo_csv, regex_classificacao)
+    organizacao_csv.adicionar_lote(validacao_csv)
+    
+    if not organizacao_csv.exportar_json(PATH_JSON_CSV):
+        print("ERRO")
+        
+    analise_csv = analisar(f"arquivos_json/{PATH_JSON_CSV}")
+
     
     
     
